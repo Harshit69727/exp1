@@ -1,15 +1,21 @@
-angular.module('tableApp', [])
-  .controller('TableController', function() {
-    const vm = this;
+$(document).ready(function () {
+  $("#addBtn").click(function () {
+    const task = $("#taskInput").val().trim();
 
-    vm.students = [
-      { name: 'Asha', age: 22, dept: 'CSE' },
-      { name: 'Bikram', age: 24, dept: 'ECE' },
-      { name: 'Charu', age: 21, dept: 'ME' },
-      { name: 'Deep', age: 23, dept: 'CSE' },
-      { name: 'Esha', age: 20, dept: 'EE' }
-    ];
+    if (task === "") return;
 
-    vm.sortKey = 'name';
-    vm.reverse = false;
+    const listItem = `
+      <li>
+        <span>${task}</span>
+        <button class="remove">X</button>
+      </li>`;
+
+    $("#taskList").append(listItem);
+    $("#taskInput").val("");
   });
+
+  // event delegation for dynamically added delete buttons
+  $("#taskList").on("click", ".remove", function () {
+    $(this).parent().remove();
+  });
+});
